@@ -1,0 +1,48 @@
+version: "3.8"
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./backend:/app                     # bind mount code for hot-reload
+      - ~/.m2:/root/.m2                    # cache maven deps on host (optional)
+    environment:
+      - SPRING_PROFILES_ACTIVE=dev
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/actuator/health || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  frontend:
+    build:
+      context: ./frontend/vite-project
+      dockerfile: Dockerfile
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./frontend/vite-project:/app       # bind mount source for hot-reload
+      - /app/node_modules
+    environment:
+      - CHOKIDAR_USEPOLLING=true           # useful on some host systems for file change detection
+      - VITE_API_URL=http://localhost:8080 # pour ton app React (Vite lit import.meta.env)
+    depends_on:
+      - backend
+
+  # Optionnel : Postgres local pour dev
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: sleepbetterdb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: example
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:
