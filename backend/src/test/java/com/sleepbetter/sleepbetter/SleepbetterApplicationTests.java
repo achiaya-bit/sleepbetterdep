@@ -1,10 +1,10 @@
-package com.sleepbetter.backend;
+package com.sleepbetter.sleepbetter;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class BackendApplicationTests {
+class SleepbetterApplicationTests {
 
 	@Test
 	void contextLoads() {
