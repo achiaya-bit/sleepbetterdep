@@ -2,9 +2,9 @@ name: CI - SleepBetter
 
 on:
   push:
-    branches: [ develop, main ]
+    branches: [develop, main]
   pull_request:
-    branches: [ develop, main ]
+    branches: [develop, main]
 
 jobs:
   backend:
@@ -28,25 +28,25 @@ jobs:
           ./mvnw clean package -DskipTests
 
   frontend:
-  name: Frontend - Build
-  runs-on: ubuntu-latest
+    name: Frontend - Build
+    runs-on: ubuntu-latest
 
-  steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    - name: Setup Node 18
-      uses: actions/setup-node@v4
-      with:
-        node-version: 18
+      - name: Setup Node 18
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
 
-    - name: Install frontend dependencies
-      working-directory: frontend/vite-project
-      run: npm ci
+      - name: Install frontend dependencies
+        working-directory: frontend/vite-project
+        run: npm ci
 
-    - name: Build frontend
-      working-directory: frontend/vite-project
-      run: npm run build
+      - name: Build frontend
+        working-directory: frontend/vite-project
+        run: npm run build
 
   docker:
     name: Docker Compose - Build
@@ -56,8 +56,5 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-
-      - name: Docker Compose build
+      - name: Build Docker images
         run: docker compose build
