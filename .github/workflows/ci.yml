@@ -2,14 +2,15 @@ name: CI - SleepBetter
 
 on:
   push:
-    branches: [ develop ]
+    branches: [ develop, main ]
   pull_request:
-    branches: [ main ]
+    branches: [ develop, main ]
 
 jobs:
   backend:
     name: Backend - Build
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v4
 
@@ -21,15 +22,18 @@ jobs:
 
       - name: Build backend
         working-directory: backend
-        run: ./mvnw clean package -DskipTests
+        run: |
+          chmod +x mvnw
+          ./mvnw clean package -DskipTests
 
   frontend:
     name: Frontend - Build
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v4
 
-      - name: Setup Node 18
+      - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 18
@@ -45,7 +49,9 @@ jobs:
   docker:
     name: Docker Compose - Build
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v4
+
       - name: Docker build
-        run: docker-compose build
+        run: docker compose build
