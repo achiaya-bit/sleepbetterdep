@@ -28,25 +28,25 @@ jobs:
           ./mvnw clean package -DskipTests
 
   frontend:
-    name: Frontend - Build
-    runs-on: ubuntu-latest
+  name: Frontend - Build
+  runs-on: ubuntu-latest
 
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+  steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
 
-      - name: Setup Node 18
-        uses: actions/setup-node@v4
-        with:
-          node-version: 18
+    - name: Setup Node 18
+      uses: actions/setup-node@v4
+      with:
+        node-version: 18
 
-      - name: Install frontend dependencies
-        working-directory: frontend/vite-project
-        run: npm install
+    - name: Install frontend dependencies
+      working-directory: frontend/vite-project
+      run: npm ci
 
-      - name: Build frontend
-        working-directory: frontend/vite-project
-        run: npx vite build
+    - name: Build frontend
+      working-directory: frontend/vite-project
+      run: npm run build
 
   docker:
     name: Docker Compose - Build
