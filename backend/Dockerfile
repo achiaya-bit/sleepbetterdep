@@ -1,4 +1,5 @@
-# Backend Dockerfile (dev)
+# Backend Dockerfile (dev)docker-compose down
+
 FROM eclipse-temurin:17-jdk
 
 WORKDIR /app
