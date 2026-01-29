@@ -2,7 +2,6 @@ package com.sleepbetter.sleepbetter.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
-
 import java.time.LocalDateTime;
 
 @Data
@@ -11,12 +10,13 @@ public class Alerte {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idAlerte;
+    private Long id;
 
-    private String type;
     private String message;
-    private boolean vue;
+
     private LocalDateTime dateCreation;
+
+    private boolean vue = false;
 
     @ManyToOne
     @JoinColumn(name = "id_utilisateur")

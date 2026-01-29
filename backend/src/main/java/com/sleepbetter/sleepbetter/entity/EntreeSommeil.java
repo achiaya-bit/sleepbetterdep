@@ -20,7 +20,7 @@ public class EntreeSommeil {
 
     private Integer duree;
     private Integer fatigue;
-    private Integer humeur;
+    private String humeur;   // ✅ STRING (FIX)
     private String commentaire;
     private Integer qualite;
 
