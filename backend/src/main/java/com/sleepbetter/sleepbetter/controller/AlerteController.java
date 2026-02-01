@@ -8,7 +8,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/alertes")
-@CrossOrigin("*")
+
 public class AlerteController {
 
     private final AlerteService service;

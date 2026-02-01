@@ -12,7 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/sleep")
-@CrossOrigin(origins = "*")
+
 public class EntreeSommeilController {
 
     @Autowired
